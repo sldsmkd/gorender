@@ -18,3 +18,10 @@ Scenario: A tuple with w=0 is a vector
     And a is not a point
     And a is a vector
 
+Scenario: Point() creates tuples with w=1
+  Given p ← Point(4, -4, 3)
+  Then p = Tuple(4, -4, 3, 1)
+
+Scenario: Vector() creates tuples with w=0
+  Given v ← Vector(4, -4, 3)
+  Then v = Tuple(4, -4, 3, 0)

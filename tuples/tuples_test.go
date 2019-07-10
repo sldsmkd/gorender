@@ -6,7 +6,7 @@ import (
 )
 
 func (t *tuple) aTuple(x, y, z, w float32) error {
-	t.Init(x, y, z, w)
+	t.Tuple(x, y, z, w)
 	return nil
 }
 
@@ -66,8 +66,20 @@ func (t *tuple) aIsNotAVector() error {
 	return nil
 }
 
+func (t *tuple) pPoint(x, y, z float32) error {
+	t.Point(x, y, z)
+	return nil
+}
+
+func (t *tuple) vVector(x, y, z float32) error {
+	t.Vector(x, y, z)
+	return nil
+}
+
 func FeatureContext(s *godog.Suite) {
 	a := &tuple{}
+	p := &tuple{}
+	v := &tuple{}
 	s.Step(`^a ← tuple\((-?\d+\.\d+), (-?\d+\.\d+), (-?\d+\.\d+), (-?\d+\.\d+)\)$`, a.aTuple)
 	s.Step(`^a\.x = (-?\d+\.\d+)$`, a.ax)
 	s.Step(`^a\.y = (-?\d+\.\d+)$`, a.ay)
@@ -77,5 +89,9 @@ func FeatureContext(s *godog.Suite) {
 	s.Step(`^a is not a vector$`, a.aIsNotAVector)
 	s.Step(`^a is not a point$`, a.aIsNotAPoint)
 	s.Step(`^a is a vector$`, a.aIsAVector)
+	s.Step(`^p ← Point\((-?\d+), (-?\d+), (-?\d+)\)$`, p.pPoint)
+	s.Step(`^p = Tuple\((-?\d+), (-?\d+), (-?\d+), (-?\d+)\)$`, p.aTuple)
+	s.Step(`^v ← Vector\((-?\d+), (-?\d+), (-?\d+)\)$`, v.vVector)
+	s.Step(`^v = Tuple\((-?\d+), (-?\d+), (-?\d+), (-?\d+)\)$`, v.aTuple)
 }
 
